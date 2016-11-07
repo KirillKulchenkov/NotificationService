@@ -85,8 +85,6 @@
     <Compile Include="Broker.cs" />
     <Compile Include="IOSPushServie.cs" />
     <Compile Include="PushСhannel.cs" />
-    <Compile Include="Messages\AndroidPushMessage.cs" />
-    <Compile Include="Messages\IosPushMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
