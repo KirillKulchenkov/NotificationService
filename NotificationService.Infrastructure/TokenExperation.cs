@@ -28,5 +28,17 @@ namespace NotificationService.Infrastructure
             }
             dbContext.SaveChanges();
         }
+
+        public static ExpiredToken CheckExpired(string token)
+        {
+            var dbContext = new DatabaseContext();
+            return dbContext.ExpiredTokens.FirstOrDefault(x => x.Token == token);
+        }
+
+        public static IEnumerable<ExpiredToken> CheckExpired(string[] tokens)
+        {
+            var dbContext = new DatabaseContext();
+            return dbContext.ExpiredTokens.Where(x => tokens.Contains(x.Token));
+        } 
     }
 }

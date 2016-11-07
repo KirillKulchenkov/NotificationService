@@ -67,6 +67,7 @@
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="Dto\DtoGcmNotification.cs" />
     <Compile Include="Dto\DtoIOSNotification.cs" />
+    <Compile Include="Dto\DtoIOSNotificationBatch.cs" />
     <Compile Include="Dto\DtoMobileApp.cs" />
     <Compile Include="Dto\DtoPushNotificationResponse.cs" />
     <Compile Include="Dto\ExpiredTokenViewModel.cs" />

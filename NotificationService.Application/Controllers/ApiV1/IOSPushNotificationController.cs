@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Http;
 using Microsoft.Practices.Unity;
 using NotificationService.Domain.Dto;
+using NotificationService.Infrastructure;
 using Unity.WebApi;
 
 namespace NotificationService.Application.Controllers.ApiV1
@@ -17,24 +18,40 @@ namespace NotificationService.Application.Controllers.ApiV1
         [HttpPost]
         public IHttpActionResult SendPush([FromBody]DtoIOSNotification msg)
         {
-            var expiredTokens = new List<DtoExpiredToken>();
-            var expiredToken = Context.ExpiredTokens.FirstOrDefault(x => x.Token == msg.Token);
+            var expiredToken = TokenExperation.CheckExpired(msg.Token);
             if (expiredToken != null)
-            {
-                expiredTokens.Add(new DtoExpiredToken()
+                return Ok(new DtoPushNotificationResponse()
                 {
-                    Token = expiredToken.Token,
-                    NewToken = expiredToken.NewToken
+                    Expired = new[] {DtoExpiredToken.FromDataModel(expiredToken)}
                 });
-            }
-            else
+
+            Service.Queue(msg);
+            return Ok(new DtoPushNotificationResponse()
             {
-                Service.Queue(msg);
+                Expired = null
+            });
+        }
+
+        [Route("send/apple/batch")]
+        [HttpPost]
+        public IHttpActionResult SendPushBatch([FromBody]DtoIOSNotificationBatch msg)
+        {
+            var expiredTokens = TokenExperation.CheckExpired(msg.Tokens).Select(DtoExpiredToken.FromDataModel).ToArray();
+            var correctTokens = new List<string>(msg.Tokens);
+            foreach (var exToken in expiredTokens)
+            {
+                correctTokens.Remove(exToken.Token);
+            }
+            msg.Tokens = correctTokens.ToArray();
+            foreach (var notification in msg.ToNotificationList())
+            {
+                Service.Queue(notification);
             }
             return Ok(new DtoPushNotificationResponse()
             {
                 Expired = expiredTokens
             });
         }
+
     }
 }
