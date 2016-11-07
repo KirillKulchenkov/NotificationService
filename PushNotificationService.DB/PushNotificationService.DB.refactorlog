@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="dd55ecc3-d315-4001-901d-916ee9136628" ChangeDateTime="10/26/2016 21:27:21">
+    <Property Name="ElementName" Value="[dbo].[MobileAppInfo].[CertificateFile]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[MobileAppInfo]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IOSCertificateFile" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="880a730c-dea6-4cd6-a870-5414e0d798a2" ChangeDateTime="10/26/2016 21:27:34">
+    <Property Name="ElementName" Value="[dbo].[MobileAppInfo].[Certi]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[MobileAppInfo]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CertificatePassword" />
+  </Operation>
+</Operations>
