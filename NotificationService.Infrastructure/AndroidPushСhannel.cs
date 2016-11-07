@@ -59,10 +59,7 @@ namespace NotificationService.Infrastructure
                     {
                         Logger.NotificationFailed(notification, exception);
                     }
-                    var expiredToken = new ExpiredToken(exc.OldSubscriptionId, exc.NewSubscriptionId);
-                    var context = new DatabaseContext();
-                    context.ExpiredTokens.Add(expiredToken);
-                    context.SaveChanges();
+                    TokenExperation.AddExpiredToken(exc.OldSubscriptionId, exc.NewSubscriptionId);
                 }
                 else if (ex is RetryAfterException)
                 {

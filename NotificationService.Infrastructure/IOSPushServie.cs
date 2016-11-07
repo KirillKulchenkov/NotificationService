@@ -32,10 +32,7 @@ namespace NotificationService.Infrastructure
                     }
                     else
                     {
-                        var expiredToken = new ExpiredToken(notification.DeviceToken, null);
-                        var context = new DatabaseContext();
-                        context.ExpiredTokens.Add(expiredToken);
-                        context.SaveChanges();
+                        TokenExperation.AddExpiredToken(notification.DeviceToken, null);
                         Logger.NotificationFailed(notification, ex);
                     }
                 }
